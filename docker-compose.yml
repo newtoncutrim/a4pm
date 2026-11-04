@@ -1,0 +1,38 @@
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: teste_a4pm
+      MYSQL_USER: a4pm
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1"]
+      interval: 5s
+      retries: 20
+
+  back:
+    build: ./backend
+    volumes:
+      - ./backend:/var/www/backend
+    ports:
+      - "8088:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  front:
+    build: ./frontend
+    environment:
+      API_PROXY_TARGET: http://back:8000
+    volumes:
+      - ./frontend:/app
+    ports:
+      - "5178:5173"
+
+volumes:
+  mysql_data:
