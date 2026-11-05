@@ -37,11 +37,11 @@ class ReceitaTest extends TestCase
         $this->assertDatabaseHas('receitas', ['nome' => 'Bolo de cenoura', 'id_usuarios' => $this->usuario->id]);
     }
 
-    public function test_nao_cadastra_sem_modo_preparo(): void
+    public function test_nao_cadastra_sem_campos_obrigatorios(): void
     {
-        $this->postJson('/api/receitas', ['nome' => 'Bolo'])
+        $this->postJson('/api/receitas', [])
             ->assertUnprocessable()
-            ->assertJsonValidationErrors('modo_preparo');
+            ->assertJsonValidationErrors(['id_categorias', 'nome', 'modo_preparo']);
     }
 
     public function test_pesquisa_apenas_receitas_do_usuario(): void
@@ -69,7 +69,11 @@ class ReceitaTest extends TestCase
     {
         $receita = Receita::factory()->for($this->usuario)->create();
 
-        $this->putJson("/api/receitas/{$receita->id}", ['nome' => 'Novo nome', 'modo_preparo' => 'Outro preparo'])
+        $this->putJson("/api/receitas/{$receita->id}", [
+            'id_categorias' => $receita->id_categorias,
+            'nome' => 'Novo nome',
+            'modo_preparo' => 'Outro preparo',
+        ])
             ->assertOk()
             ->assertJsonPath('nome', 'Novo nome');
     }

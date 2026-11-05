@@ -45,7 +45,7 @@ class ReceitaController extends Controller
         security: [new OA\Security\Requirement(scheme: 'token')]
     )]
     #[OA\RequestBody(required: true, content: new OA\MediaType\Json(
-        required: ['modo_preparo'],
+        required: ['id_categorias', 'nome', 'modo_preparo'],
         properties: self::CAMPOS,
     ))]
     #[OA\Response(response: Response::HTTP_CREATED, description: 'Receita cadastrada')]
@@ -59,7 +59,7 @@ class ReceitaController extends Controller
 
     #[OA\Operation\Get(
         path: '/api/receitas/{id}',
-        summary: 'Mostra uma receita para impressão',
+        summary: 'Mostra uma receita',
         tags: ['Receitas'],
         security: [new OA\Security\Requirement(scheme: 'token')]
     )]
@@ -79,7 +79,7 @@ class ReceitaController extends Controller
     )]
     #[OA\Parameter\Path(name: 'id', schema: new OA\Schema(type: OA\Type::Integer))]
     #[OA\RequestBody(required: true, content: new OA\MediaType\Json(
-        required: ['modo_preparo'],
+        required: ['id_categorias', 'nome', 'modo_preparo'],
         properties: self::CAMPOS,
     ))]
     #[OA\Response(response: Response::HTTP_OK, description: 'Receita alterada')]
