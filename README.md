@@ -47,6 +47,13 @@ O `make up` cria os `.env` a partir dos `.env.example` (se ainda não existirem)
 | Swagger | http://localhost:8088/api/documentation |
 | MySQL | `localhost:3308` |
 
+### Usuário padrão
+
+A seeder cria um usuário com 8 receitas já cadastradas:
+
+- Login: `admin`
+- Senha: `123456`
+
 ## Comandos
 
 | Comando | O que faz |
