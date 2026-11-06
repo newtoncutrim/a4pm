@@ -158,7 +158,7 @@ onMounted(async () => {
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">{{ receitaAberta.nome }}</h5>
+            <h5 class="modal-title text-break">{{ receitaAberta.nome }}</h5>
             <button type="button" class="btn-close d-print-none" @click="receitaAberta = undefined"></button>
           </div>
           <div class="modal-body">
@@ -172,11 +172,11 @@ onMounted(async () => {
 
             <template v-if="receitaAberta.ingredientes">
               <h6>Ingredientes</h6>
-              <p style="white-space: pre-line">{{ receitaAberta.ingredientes }}</p>
+              <p class="text-break" style="white-space: pre-line">{{ receitaAberta.ingredientes }}</p>
             </template>
 
             <h6>Modo de preparo</h6>
-            <p class="mb-0" style="white-space: pre-line">{{ receitaAberta.modo_preparo }}</p>
+            <p class="mb-0 text-break" style="white-space: pre-line">{{ receitaAberta.modo_preparo }}</p>
           </div>
           <div class="modal-footer d-print-none">
             <button class="btn btn-secondary" @click="receitaAberta = undefined">Fechar</button>
