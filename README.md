@@ -61,10 +61,14 @@ O `make up` cria os `.env` a partir dos `.env.example` (se ainda não existirem)
 | `make docs` | Gera a documentação do Swagger |
 | `make help` | Lista os comandos |
 
+## Teste back
+
 ![Testes do back](docs/testes-back.png)
 
+## Teste front
 ![Testes do front](docs/teste-front.png)
 
+## Teste e2e
 ![Testes E2E](docs/teste-e2e.png)
 
 ## API
