@@ -68,12 +68,12 @@ async function salvar() {
             </div>
             <div class="col-md-6">
               <label class="form-label" for="tempo">Tempo de preparo (minutos)</label>
-              <input id="tempo" v-model.number="form.tempo_preparo_minutos" type="number" min="1" class="form-control" :class="{ 'is-invalid': erros.tempo_preparo_minutos }" />
+              <input id="tempo" v-model.number="form.tempo_preparo_minutos" type="number" min="1" max="1000" class="form-control" :class="{ 'is-invalid': erros.tempo_preparo_minutos }" />
               <div class="invalid-feedback">{{ erros.tempo_preparo_minutos?.[0] }}</div>
             </div>
             <div class="col-md-6">
               <label class="form-label" for="porcoes">Porções</label>
-              <input id="porcoes" v-model.number="form.porcoes" type="number" min="1" class="form-control" :class="{ 'is-invalid': erros.porcoes }" />
+              <input id="porcoes" v-model.number="form.porcoes" type="number" min="1" max="1000" class="form-control" :class="{ 'is-invalid': erros.porcoes }" />
               <div class="invalid-feedback">{{ erros.porcoes?.[0] }}</div>
             </div>
             <div class="col-12">

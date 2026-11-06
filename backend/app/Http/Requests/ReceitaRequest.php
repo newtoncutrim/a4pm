@@ -20,8 +20,8 @@ class ReceitaRequest extends FormRequest
         return [
             'id_categorias' => ['required', 'integer', 'exists:categorias,id'],
             'nome' => ['required', 'string', 'min:3', 'max:45'],
-            'tempo_preparo_minutos' => ['nullable', 'integer', 'min:1'],
-            'porcoes' => ['nullable', 'integer', 'min:1'],
+            'tempo_preparo_minutos' => ['nullable', 'integer', 'min:1', 'max:1000'],
+            'porcoes' => ['nullable', 'integer', 'min:1', 'max:1000'],
             'modo_preparo' => ['required', 'string', 'max:1500'],
             'ingredientes' => ['nullable', 'string', 'max:1500'],
         ];
@@ -34,8 +34,10 @@ class ReceitaRequest extends FormRequest
             'id_categorias.exists' => 'Categoria não encontrada.',
             'tempo_preparo_minutos.integer' => 'O tempo de preparo precisa ser um número.',
             'tempo_preparo_minutos.min' => 'O tempo de preparo precisa ser de pelo menos 1 minuto.',
+            'tempo_preparo_minutos.max' => 'O tempo de preparo pode ser de no máximo 1000 minutos.',
             'porcoes.integer' => 'As porções precisam ser um número.',
             'porcoes.min' => 'Informe pelo menos 1 porção.',
+            'porcoes.max' => 'Informe no máximo 1000 porções.',
             'nome.required' => 'Informe o nome.',
             'nome.min' => 'O nome precisa ter pelo menos 3 caracteres.',
             'nome.max' => 'O nome pode ter no máximo 45 caracteres.',
