@@ -1,6 +1,6 @@
 -include .env
 
-.PHONY: help up down test test-back test-front pint docs
+.PHONY: help up down test test-back test-front test-e2e pint docs
 
 help:
 	@echo "make up          sobe o ambiente"
@@ -8,6 +8,7 @@ help:
 	@echo "make test        roda os testes do back e do front"
 	@echo "make test-back   roda os testes do back"
 	@echo "make test-front  roda os testes do front"
+	@echo "make test-e2e    roda o teste e2e"
 	@echo "make pint        formata o codigo do back"
 	@echo "make docs        gera a doc do swagger"
 
@@ -31,6 +32,9 @@ test-back:
 
 test-front:
 	docker compose exec front npx vitest run
+
+test-e2e:
+	docker compose run --rm e2e
 
 pint:
 	docker compose exec back ./vendor/bin/pint

@@ -27,3 +27,6 @@ coverage
 /cypress/screenshots/
 __screenshots__/
 *.timestamp-*-*.mjs
+
+test-results
+playwright-report
