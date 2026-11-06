@@ -1,0 +1,17 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Usuario;
+use Illuminate\Database\Seeder;
+
+class UsuarioSeeder extends Seeder
+{
+    public function run(): void
+    {
+        Usuario::firstOrCreate(
+            ['login' => 'admin'],
+            ['nome' => 'Administrador', 'senha' => '123456'],
+        );
+    }
+}
