@@ -11,6 +11,10 @@ const receitaAberta = ref<Receita>()
 const formAberto = ref(false)
 const receitaEditada = ref<Receita>()
 
+function avisarSucesso(texto: string) {
+  Swal.fire({ title: texto, icon: 'success', timer: 1500, showConfirmButton: false })
+}
+
 function avisarErro(e: unknown) {
   Swal.fire({ title: 'Erro', text: mensagemErro(e), icon: 'error' })
 }
@@ -39,6 +43,7 @@ async function excluir(receita: Receita) {
 
   try {
     await api.delete(`/receitas/${receita.id}`)
+    avisarSucesso('Receita excluída com sucesso!')
     carregar(pagina.value?.current_page)
   } catch (e) {
     avisarErro(e)
@@ -52,6 +57,7 @@ function abrirForm(receita?: Receita) {
 
 function salvo() {
   formAberto.value = false
+  avisarSucesso(receitaEditada.value ? 'Receita atualizada com sucesso!' : 'Receita cadastrada com sucesso!')
   carregar(pagina.value?.current_page)
 }
 
