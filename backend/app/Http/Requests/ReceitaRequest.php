@@ -32,6 +32,10 @@ class ReceitaRequest extends FormRequest
         return [
             'id_categorias.required' => 'Informe a categoria.',
             'id_categorias.exists' => 'Categoria não encontrada.',
+            'tempo_preparo_minutos.integer' => 'O tempo de preparo precisa ser um número.',
+            'tempo_preparo_minutos.min' => 'O tempo de preparo precisa ser de pelo menos 1 minuto.',
+            'porcoes.integer' => 'As porções precisam ser um número.',
+            'porcoes.min' => 'Informe pelo menos 1 porção.',
             'nome.required' => 'Informe o nome.',
             'nome.min' => 'O nome precisa ter pelo menos 3 caracteres.',
             'nome.max' => 'O nome pode ter no máximo 45 caracteres.',

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { api, mensagemErro, type Categoria, type Receita } from '@/api'
+import { api, errosCampos, mensagemErro, type Categoria, type Receita } from '@/api'
 
 const { receita, categorias } = defineProps<{ receita?: Receita; categorias: Categoria[] }>()
 const emit = defineEmits<{ fechar: []; salvo: [] }>()
@@ -14,10 +14,12 @@ const form = ref({
   modo_preparo: receita?.modo_preparo ?? '',
 })
 const erro = ref('')
+const erros = ref<Record<string, string[]>>({})
 const salvando = ref(false)
 
 async function salvar() {
   erro.value = ''
+  erros.value = {}
   salvando.value = true
 
   try {
@@ -28,7 +30,8 @@ async function salvar() {
     }
     emit('salvo')
   } catch (e) {
-    erro.value = mensagemErro(e)
+    erros.value = errosCampos(e)
+    if (!Object.keys(erros.value).length) erro.value = mensagemErro(e)
   } finally {
     salvando.value = false
   }
@@ -38,7 +41,7 @@ async function salvar() {
 <template>
   <div class="modal d-block" tabindex="-1" @click.self="emit('fechar')">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-      <form class="modal-content" @submit.prevent="salvar">
+      <form class="modal-content" novalidate @submit.prevent="salvar">
         <div class="modal-header">
           <h5 class="modal-title">{{ receita ? 'Editar receita' : 'Nova receita' }}</h5>
           <button type="button" class="btn-close" @click="emit('fechar')"></button>
@@ -50,32 +53,38 @@ async function salvar() {
           <div class="row g-2">
             <div class="col-md-6">
               <label class="form-label" for="nome">Nome <span class="text-danger">*</span></label>
-              <input id="nome" v-model="form.nome" class="form-control" minlength="3" maxlength="45" required />
+              <input id="nome" v-model="form.nome" class="form-control" :class="{ 'is-invalid': erros.nome }" maxlength="45" />
+              <div class="invalid-feedback">{{ erros.nome?.[0] }}</div>
             </div>
             <div class="col-md-6">
               <label class="form-label" for="categoria">Categoria <span class="text-danger">*</span></label>
-              <select id="categoria" v-model="form.id_categorias" class="form-select" required>
+              <select id="categoria" v-model="form.id_categorias" class="form-select" :class="{ 'is-invalid': erros.id_categorias }">
                 <option value="" disabled>Selecione</option>
                 <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
                   {{ categoria.nome }}
                 </option>
               </select>
+              <div class="invalid-feedback">{{ erros.id_categorias?.[0] }}</div>
             </div>
             <div class="col-md-6">
               <label class="form-label" for="tempo">Tempo de preparo (minutos)</label>
-              <input id="tempo" v-model.number="form.tempo_preparo_minutos" type="number" min="1" class="form-control" />
+              <input id="tempo" v-model.number="form.tempo_preparo_minutos" type="number" min="1" class="form-control" :class="{ 'is-invalid': erros.tempo_preparo_minutos }" />
+              <div class="invalid-feedback">{{ erros.tempo_preparo_minutos?.[0] }}</div>
             </div>
             <div class="col-md-6">
               <label class="form-label" for="porcoes">Porções</label>
-              <input id="porcoes" v-model.number="form.porcoes" type="number" min="1" class="form-control" />
+              <input id="porcoes" v-model.number="form.porcoes" type="number" min="1" class="form-control" :class="{ 'is-invalid': erros.porcoes }" />
+              <div class="invalid-feedback">{{ erros.porcoes?.[0] }}</div>
             </div>
             <div class="col-12">
               <label class="form-label" for="ingredientes">Ingredientes</label>
-              <textarea id="ingredientes" v-model="form.ingredientes" class="form-control" rows="3"></textarea>
+              <textarea id="ingredientes" v-model="form.ingredientes" class="form-control" :class="{ 'is-invalid': erros.ingredientes }" rows="3"></textarea>
+              <div class="invalid-feedback">{{ erros.ingredientes?.[0] }}</div>
             </div>
             <div class="col-12">
               <label class="form-label" for="modo_preparo">Modo de preparo <span class="text-danger">*</span></label>
-              <textarea id="modo_preparo" v-model="form.modo_preparo" class="form-control" rows="4" required></textarea>
+              <textarea id="modo_preparo" v-model="form.modo_preparo" class="form-control" :class="{ 'is-invalid': erros.modo_preparo }" rows="4"></textarea>
+              <div class="invalid-feedback">{{ erros.modo_preparo?.[0] }}</div>
             </div>
           </div>
         </div>

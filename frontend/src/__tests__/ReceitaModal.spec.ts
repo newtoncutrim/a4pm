@@ -6,6 +6,7 @@ import { api } from '@/api'
 vi.mock('@/api', () => ({
   api: { post: vi.fn(), put: vi.fn() },
   mensagemErro: () => 'O campo nome é obrigatório.',
+  errosCampos: () => ({}),
 }))
 
 const categorias = [{ id: 1, nome: 'Bolos e tortas doces' }]

@@ -24,11 +24,17 @@ export interface Pagina<T> {
   total: number
 }
 
-export function mensagemErro(erro: unknown) {
+export function mensagemErro(erro: unknown): string {
   if (!axios.isAxiosError(erro)) return 'Não foi possível concluir. Tente novamente.'
   if (!erro.response) return 'Sem conexão com o servidor. Tente novamente.'
 
   return erro.response.data?.message ?? 'Não foi possível concluir. Tente novamente.'
+}
+
+export function errosCampos(erro: unknown): Record<string, string[]> {
+  if (!axios.isAxiosError(erro)) return {}
+
+  return erro.response?.data?.errors ?? {}
 }
 
 export const sessao = reactive({
