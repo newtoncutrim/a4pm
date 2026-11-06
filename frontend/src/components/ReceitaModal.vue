@@ -80,11 +80,13 @@ async function salvar() {
               <label class="form-label" for="ingredientes">Ingredientes</label>
               <textarea id="ingredientes" v-model="form.ingredientes" class="form-control" :class="{ 'is-invalid': erros.ingredientes }" rows="3" maxlength="1500"></textarea>
               <div class="invalid-feedback">{{ erros.ingredientes?.[0] }}</div>
+              <div class="form-text text-end">{{ form.ingredientes.length }}/1500</div>
             </div>
             <div class="col-12">
               <label class="form-label" for="modo_preparo">Modo de preparo <span class="text-danger">*</span></label>
               <textarea id="modo_preparo" v-model="form.modo_preparo" class="form-control" :class="{ 'is-invalid': erros.modo_preparo }" rows="4" maxlength="1500"></textarea>
               <div class="invalid-feedback">{{ erros.modo_preparo?.[0] }}</div>
+              <div class="form-text text-end">{{ form.modo_preparo.length }}/1500</div>
             </div>
           </div>
         </div>
