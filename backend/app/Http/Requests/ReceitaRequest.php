@@ -22,8 +22,8 @@ class ReceitaRequest extends FormRequest
             'nome' => ['required', 'string', 'min:3', 'max:45'],
             'tempo_preparo_minutos' => ['nullable', 'integer', 'min:1'],
             'porcoes' => ['nullable', 'integer', 'min:1'],
-            'modo_preparo' => ['required', 'string'],
-            'ingredientes' => ['nullable', 'string'],
+            'modo_preparo' => ['required', 'string', 'max:1500'],
+            'ingredientes' => ['nullable', 'string', 'max:1500'],
         ];
     }
 
@@ -40,6 +40,8 @@ class ReceitaRequest extends FormRequest
             'nome.min' => 'O nome precisa ter pelo menos 3 caracteres.',
             'nome.max' => 'O nome pode ter no máximo 45 caracteres.',
             'modo_preparo.required' => 'Informe o modo de preparo.',
+            'modo_preparo.max' => 'O modo de preparo pode ter no máximo 1500 caracteres.',
+            'ingredientes.max' => 'Os ingredientes podem ter no máximo 1500 caracteres.',
         ];
     }
 }
