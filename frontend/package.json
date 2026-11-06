@@ -8,6 +8,7 @@
     "build": "vue-tsc --build && vite build",
     "preview": "vite preview",
     "test:unit": "vitest",
+    "test:e2e": "playwright test",
     "type-check": "vue-tsc --build"
   },
   "dependencies": {

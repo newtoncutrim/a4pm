@@ -42,7 +42,7 @@ services:
     volumes:
       - ./frontend:/app
     network_mode: service:front
-    command: npx playwright test
+    command: npm run test:e2e
 
 volumes:
   mysql_data:
