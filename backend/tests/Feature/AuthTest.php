@@ -26,9 +26,18 @@ class AuthTest extends TestCase
     {
         Usuario::factory()->create(['login' => 'maria']);
 
-        $this->postJson('/api/usuarios', ['login' => 'maria', 'senha' => 'segredo123'])
+        $this->postJson('/api/usuarios', ['nome' => 'Maria', 'login' => 'maria', 'senha' => 'segredo123'])
             ->assertUnprocessable()
             ->assertJsonValidationErrors('login');
+    }
+
+    public function test_nome_e_obrigatorio_com_3_caracteres(): void
+    {
+        $this->postJson('/api/usuarios', ['login' => 'maria', 'senha' => 'segredo123'])
+            ->assertJsonValidationErrors(['nome' => 'Informe o nome.']);
+
+        $this->postJson('/api/usuarios', ['nome' => 'Ma', 'login' => 'maria', 'senha' => 'segredo123'])
+            ->assertJsonValidationErrors(['nome' => 'O nome precisa ter pelo menos 3 caracteres.']);
     }
 
     public function test_login_retorna_token(): void
