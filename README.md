@@ -56,12 +56,16 @@ O `make up` cria os `.env` a partir dos `.env.example` (se ainda não existirem)
 | `make test` | Roda os testes do back e do front |
 | `make test-back` | Roda os testes do Laravel |
 | `make test-front` | Roda os testes do Vue |
-| `make test-e2e` | Roda o teste E2E com Playwright (precisa do ambiente no ar) |
+| `make test-e2e` | Roda os testes E2E com Playwright (precisa do ambiente no ar) |
 | `make pint` | Formata o código do back com o Laravel Pint |
 | `make docs` | Gera a documentação do Swagger |
 | `make help` | Lista os comandos |
 
 ![Testes do back](docs/testes-back.png)
+
+![Testes do front](docs/teste-front.png)
+
+![Testes E2E](docs/teste-e2e.png)
 
 ## API
 
