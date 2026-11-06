@@ -1,6 +1,7 @@
 FROM php:8.4-cli-alpine
 
 RUN apk add --no-cache git unzip && docker-php-ext-install pdo_mysql
+RUN echo "post_max_size=40M" > "$PHP_INI_DIR/conf.d/uploads.ini"
 
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
